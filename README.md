@@ -33,6 +33,7 @@ print(DumpTable(test));
 ```
 
 ```lua
+-- Output
 local TABLE_DATA = {
   Booleans = {
    GgNoRe = false,

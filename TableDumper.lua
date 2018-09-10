@@ -1,6 +1,6 @@
 function DumpTable(t)
     local _________ = "local TABLE_DATA = {\n";
-    local Indexes = {
+    local ______ = {
         tIndex = 0;
     };
 
@@ -14,14 +14,14 @@ function DumpTable(t)
 
     function getTab()
         local c = "";
-        for i = 0, Indexes.tIndex do
+        for i = 0, ______.tIndex do
             c = c .. " ";
         end
         return c;
     end
 
     function Yeet(t1)
-        Indexes.tIndex = Indexes.tIndex + 1;
+        ______.tIndex = ______.tIndex + 1;
         local i = 0;
         for x,y in pairs(t1) do
             i = i + 1;
@@ -63,7 +63,7 @@ function DumpTable(t)
                 end
             end
         end
-        Indexes.tIndex = Indexes.tIndex - 1;
+        ______.tIndex = ______.tIndex - 1;
     end
     Yeet(t);
     _________ = _________ .. "}";

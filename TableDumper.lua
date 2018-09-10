@@ -4,7 +4,7 @@ function DumpTable(t)
         tIndex = 0;
     };
 
-    function GIOT(t1)
+    function __________(t1)
         local i = 0;
         for _,__ in pairs(t1) do
             i = i + 1;
@@ -25,7 +25,7 @@ function DumpTable(t)
         local i = 0;
         for x,y in pairs(t1) do
             i = i + 1;
-            if (i == GIOT(t1)) then
+            if (i == __________(t1)) then
                 if (type(y) == "table") then
                     _________ = _________ .. getTab() .. tostring(x) .. " = {\n";
                     Yeet(y);

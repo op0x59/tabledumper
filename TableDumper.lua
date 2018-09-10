@@ -1,5 +1,5 @@
 function DumpTable(t)
-    local ret = "local TABLE_DATA = {\n";
+    local _________ = "local TABLE_DATA = {\n";
     local Indexes = {
         tIndex = 0;
     };
@@ -27,38 +27,38 @@ function DumpTable(t)
             i = i + 1;
             if (i == GIOT(t1)) then
                 if (type(y) == "table") then
-                    ret = ret .. getTab() .. tostring(x) .. " = {\n";
+                    _________ = _________ .. getTab() .. tostring(x) .. " = {\n";
                     Yeet(y);
-                    ret = ret .. getTab() .. "}\n";
+                    _________ = _________ .. getTab() .. "}\n";
                 elseif (type(y) == "string") then
                     if (type(x) ~= "number") then
-                        ret = ret .. getTab()  .. tostring(x) .. " = \"" .. tostring(y) .. "\"\n";
+                        _________ = _________ .. getTab()  .. tostring(x) .. " = \"" .. tostring(y) .. "\"\n";
                     else
-                        ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\"\n";
+                        _________ = _________ .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\"\n";
                     end
                 else
                     if (type(x) ~= "number") then
-                        ret = ret .. getTab() .. tostring(x) .. " = " .. tostring(y) .. "\n";
+                        _________ = _________ .. getTab() .. tostring(x) .. " = " .. tostring(y) .. "\n";
                     else
-                        ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. tostring(y) .. "\n";
+                        _________ = _________ .. getTab() .. "[" .. tostring(x) .. "] = " .. tostring(y) .. "\n";
                     end
                 end
             else
                 if (type(y) == "table") then
-                    ret = ret .. getTab() .. tostring(x) .. " = {\n";
+                    _________ = _________ .. getTab() .. tostring(x) .. " = {\n";
                     Yeet(y);
-                    ret = ret .. getTab() .. "},\n";
+                    _________ = _________ .. getTab() .. "},\n";
                 elseif (type(y) == "string") then
                     if (type(x) ~= "number") then
-                        ret = ret .. getTab()  .. tostring(x) .. " = \"" .. tostring(y) .. "\",\n";
+                        _________ = _________ .. getTab()  .. tostring(x) .. " = \"" .. tostring(y) .. "\",\n";
                     else
-                        ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\",\n";
+                        _________ = _________ .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\",\n";
                     end
                 else
                     if (type(x) ~= "number") then
-                        ret = ret .. getTab() .. tostring(x) .. " = " .. tostring(y) .. ",\n";
+                        _________ = _________ .. getTab() .. tostring(x) .. " = " .. tostring(y) .. ",\n";
                     else
-                        ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. tostring(y) .. ",\n";
+                        _________ = _________ .. getTab() .. "[" .. tostring(x) .. "] = " .. tostring(y) .. ",\n";
                     end
                 end
             end
@@ -66,6 +66,6 @@ function DumpTable(t)
         Indexes.tIndex = Indexes.tIndex - 1;
     end
     Yeet(t);
-    ret = ret .. "}";
-    return ret;
+    _________ = _________ .. "}";
+    return _________;
 end

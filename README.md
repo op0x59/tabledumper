@@ -46,3 +46,25 @@ local TABLE_DATA = {
   }
 }
 ```
+
+## Function Decompilation
+If the IDE you are using supports a "decompile" function, TableDumper will decompile any function in the table.
+Ex:
+```lua
+print(DumpTable({
+  HeyThere=true, 
+  test_func = function() 
+    print('hey') 
+  end
+}));
+```
+
+```lua
+-- Output
+local TABLE_DATA = {
+  HeyThere = true,
+  test_func = function()
+    print('hey')
+  end
+}
+```

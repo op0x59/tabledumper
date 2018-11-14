@@ -6,65 +6,37 @@ Import the DumpTable function into your lua script.
 
 Call it like this:
 ```lua
-print(DumpTable({hey_there = true, hello_world = 1}))
+print(DumpTable({
+  {
+    "test",
+    {
+      "test 2",
+      {
+        "another test"
+      }
+    },
+    {
+      "test 3"
+    }, 
+    print
+  }
+}))
 ```
 The output should be something like this:
 ```lua
 local TABLE_DATA = {
-  hey_there = true,
-  hello_world = 1
-}
-```
-
-## Examples
-```lua
-local test = {
-    Strings = {
-        "Hey there, I'm bill",
-        "Hello World",
-        "1 + 1 = 2"
-    }, 
-    Booleans = {
-        Cool = true,
-        GgNoRe = false
+  {
+   "test",
+   {
+    "test 2",
+    {
+     "another test"
     }
-}
-print(DumpTable(test));
-```
-
-```lua
--- Output
-local TABLE_DATA = {
-  Booleans = {
-   GgNoRe = false,
-   Cool = true
-  },
-  Strings = {
-   [1] = "Hey there, I'm bill",
-   [2] = "Hello World",
-   [3] = "1 + 1 = 2"
+   },
+   {
+    "test 3"
+   },
+   userdata: 0x90d6d8
   }
-}
-```
-
-## Function Decompilation
-If the IDE you are using supports a "decompile" function, TableDumper will decompile any function in the table.
-Ex:
-```lua
-print(DumpTable({
-  HeyThere=true, 
-  test_func = function() 
-    print('hey') 
-  end
-}));
-```
-
-```lua
--- Output
-local TABLE_DATA = {
-  HeyThere = true,
-  test_func = function()
-    print('hey')
-  end
 }
 ```

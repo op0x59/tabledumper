@@ -7,36 +7,34 @@ Import the DumpTable function into your lua script.
 Call it like this:
 ```lua
 print(DumpTable({
+  print, 
+  error,
+  xpcall,
+  tostring,
   {
-    "test",
-    {
-      "test 2",
-      {
-        "another test"
-      }
-    },
-    {
-      "test 3"
-    }, 
-    print
+    "Dumping Tables is cool",
+    "Especially with",
+    "Userdata caching"
+  },
+  {
+    "Lua is also cool"
   }
 }))
 ```
 The output should be something like this:
 ```lua
 local TABLE_DATA = {
+  print,
+  function: 0x17f8b70,
+  function: 0x17f9160,
+  function: 0x17f9040,
   {
-   "test",
-   {
-    "test 2",
-    {
-     "another test"
-    }
-   },
-   {
-    "test 3"
-   },
-   userdata: 0x90d6d8
+   "Dumping Tables is cool",
+   "Especially with",
+   "Userdata caching"
+  },
+  {
+   "Lua is also cool"
   }
 }
 ```

@@ -1,23 +1,35 @@
 function DumpTable(t)
     local ret = "local TABLE_DATA = {\n";
+    local userDataCache = {};
     local Indexes = {
         tIndex = 0;
     };
-     function GIOT(t1)
+
+    function scanUserdataG()
+      for k,v in pairs(_G) do
+        table.insert(userDataCache, {tostring(k), tostring(v)});
+      end
+    end
+
+    function GIOT(t1)
         local i = 0;
         for _,__ in pairs(t1) do
             i = i + 1;
         end
         return i;
     end
-     function getTab()
+
+    function getTab()
         local c = "";
         for i = 0, Indexes.tIndex do
             c = c .. " ";
         end
         return c;
     end
-     function Yeet(t1)
+
+    scanUserdataG();
+
+    function Yeet(t1)
         Indexes.tIndex = Indexes.tIndex + 1;
         local i = 0;
         local noTCount = 0;
@@ -52,6 +64,20 @@ function DumpTable(t)
                           ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\"\n";
                         end
                     end
+                elseif (type(y) == "userdata") then
+                  for _,v in pairs(userDataCache) do
+                    if (v[2] == tostring(y)) then
+                      if (type(x) ~= "number") then
+                        ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = " .. v[1] .. "\n";
+                      else
+                        if (x == i) then
+                          ret = ret .. getTab()  .. v[1] .. "\n";
+                        else
+                          ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. v[1] .. "\n";
+                        end
+                      end
+                    end
+                  end
                 else
                     noTCount = noTCount + 1;
                     if (type(x) ~= "number") then
@@ -93,6 +119,20 @@ function DumpTable(t)
                            ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\",\n";
                         end
                     end
+                elseif (type(y) == "userdata") then
+                  for _,v in pairs(userDataCache) do
+                    if (v[2] == tostring(y)) then
+                      if (type(x) ~= "number") then
+                        ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = " .. v[1] .. ",\n";
+                      else
+                        if (x == i) then
+                          ret = ret .. getTab()  .. v[1] .. ",\n";
+                        else
+                          ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. v[1] .. ",\n";
+                        end
+                      end
+                    end
+                  end
                 else
                     noTCount = noTCount + 1;
                     if (type(x) ~= "number") then

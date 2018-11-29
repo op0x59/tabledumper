@@ -1,6 +1,9 @@
 # TableDumper
 Lua Module for Dumping Tables, back into a lua format.
 
+## Update Schedules
+There really is no schedule I just update this whenever I'm bored while in school.
+
 ## How to Use
 Import the DumpTable function into your lua script.
 

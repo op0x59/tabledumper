@@ -10,28 +10,32 @@ Import the DumpTable function into your lua script.
 Call it like this:
 ```lua
 print(DumpTable({
-  print,
-  error,
-  ipairs,
-  {
-    pairs,
-    "hey there",
-    "pretty accurate",
-    "right?"
+  vanilla_funcs = {
+    print, error,
+    pairs, ipairs
+  },
+  custom_funcs = {
+    add = function(x,y) return x + y end,
+    sub = function(x,y) return x - y end,
+    mul = function(x,y) return x * y end,
+    div = function(x,y) return x / y end
   }
-}))
+}));
 ```
 The output should be something like this:
 ```lua
 local TABLE_DATA = {
-  print,		 -- userdata: 0x1088698
-  error,		 -- function: 0x1081b30
-  ipairs,		 -- function: 0x1081400
-  {
-   pairs,		 -- function: 0x10814a0
-   "hey there",
-   "pretty accurate",
-   "right?"
+  ["vanilla_funcs"] = {
+   print,		 -- userdata: 0x221f698
+   error,		 -- function: 0x2218b30
+   pairs,		 -- function: 0x22184a0
+   ipairs		 -- function: 0x2218400
+  },
+  ["custom_funcs"] = {
+   ["sub"] = "function: 0x2223250",
+   ["mul"] = "function: 0x2223280",
+   ["div"] = "function: 0x22232b0",
+   ["add"] = "function: 0x2223220",
   }
 }
 ```

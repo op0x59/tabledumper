@@ -27,12 +27,11 @@ function DumpTable(t)
         return c;
     end
 
-    scanUserdataG();
-
     function InnerDump(t1)
-        Indexes.tIndex = Indexes.tIndex + 1;
         local i = 0;
         local noTCount = 0;
+
+        Indexes.tIndex = Indexes.tIndex + 1;
         for x,y in pairs(t1) do
             i = i + 1;
             if (i == GIOT(t1)) then
@@ -79,8 +78,10 @@ function DumpTable(t)
                     end
                   end
                 elseif (type(y) == "function") then
+                  local found = false;
                   for _,v in pairs(userDataCache) do
                     if (v[2] == tostring(y)) then
+                      found = true;
                       if (type(x) ~= "number") then
                         ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = " .. v[1] .. "\t\t -- " .. v[2] .. "\n";
                       else
@@ -90,6 +91,13 @@ function DumpTable(t)
                           ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. v[1] .. "\t\t -- " .. v[2] .. "\n";
                         end
                       end
+                    end
+                  end
+                  if (found == false) then
+                    if (type(x) ~= "number") then
+                      ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = \"" .. tostring(y) .. "\",\n";
+                    else
+                      ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\",\n";
                     end
                   end
                 else
@@ -148,8 +156,10 @@ function DumpTable(t)
                     end
                   end
                 elseif (type(y == "function")) then
+                  local found = false;
                   for _,v in pairs(userDataCache) do
                     if (v[2] == tostring(y)) then
+                      found = true;
                       if (type(x) ~= "number") then
                         ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = " .. v[1] .. ",\t\t -- " .. v[2] .. "\n";
                       else
@@ -159,6 +169,13 @@ function DumpTable(t)
                           ret = ret .. getTab() .. "[" .. tostring(x) .. "] = " .. v[1] .. ",\t\t -- " .. v[2] .. "\n";
                         end
                       end
+                    end
+                  end
+                  if (found == false) then
+                    if (type(x) ~= "number") then
+                      ret = ret .. getTab() .. "[\"" .. tostring(x) .. "\"] = \"" .. tostring(y) .. "\",\n";
+                    else
+                      ret = ret .. getTab() .. "[" .. tostring(x) .. "] = \"" .. tostring(y) .. "\",\n";
                     end
                   end
                 else
@@ -177,6 +194,8 @@ function DumpTable(t)
         end
         Indexes.tIndex = Indexes.tIndex - 1;
     end
+
+    scanUserdataG();
     InnerDump(t);
     ret = ret .. "}";
     return ret;

@@ -10,32 +10,28 @@ Import the DumpTable function into your lua script.
 Call it like this:
 ```lua
 print(DumpTable({
-  vanilla_funcs = {
-    print, error,
-    pairs, ipairs
-  },
-  custom_funcs = {
-    add = function(x,y) return x + y end,
-    sub = function(x,y) return x - y end,
-    mul = function(x,y) return x * y end,
-    div = function(x,y) return x / y end
+  TestTable = {};
+  CoolFunctions = {
+    print,
+    ipairs,
+    error
   }
-}));
+})); 
 ```
+
 The output should be something like this:
 ```lua
-local TABLE_DATA = {
-  ["vanilla_funcs"] = {
-   print,		 -- userdata: 0x221f698
-   error,		 -- function: 0x2218b30
-   pairs,		 -- function: 0x22184a0
-   ipairs		 -- function: 0x2218400
-  },
-  ["custom_funcs"] = {
-   ["sub"] = "function: 0x2223250",
-   ["mul"] = "function: 0x2223280",
-   ["div"] = "function: 0x22232b0",
-   ["add"] = "function: 0x2223220",
+local DUMPED_TABLE = {
+  ["TestTable"] = {},
+  ["CoolFunctions"] = {
+   print,		 -- userdata: 0x15d16b8
+   ipairs,		 -- function: 0x15ca420
+   error		 -- function: 0x15cab50
   }
 }
 ```
+
+Latest Update:
+ - Added Empty Table Detection.
+ - Added support for booleans properly.
+ - Fixed Some Code Formatting

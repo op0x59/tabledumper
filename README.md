@@ -31,7 +31,16 @@ local DUMPED_TABLE = {
 }
 ```
 
-Latest Update:
+
+## Latest Update
  - Added Empty Table Detection.
  - Added support for booleans properly.
  - Fixed Some Code Formatting
+ 
+## Supported Types
+ - Strings
+ - Numbers
+ - Booleans
+ - Tables
+ - Userdata (Barely has support)
+ - Functions (Barely has support)

@@ -8,6 +8,11 @@ There really is no schedule I just update this whenever I'm bored while in schoo
  - Userdata & Function Caching
  - Table Formatting
  - Smart Dumping
+ 
+## Things I cant Add
+ - Original Formatting (Lua Retains no formatting information)
+ - Table Order (Lua Retains no information on the order except indexes)
+ - Dumping of Original Lua Code (The Closest I can get is to make it check if there is a built-in decompiler to your environment)
 
 ## How to Use
 Import the DumpTable function into your lua script.

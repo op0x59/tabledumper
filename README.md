@@ -4,6 +4,8 @@ Lua Module for Dumping Tables, back into a lua format.
 ## Update Schedules
 There really is no schedule I just update this whenever I'm bored while in school.
 
+(Currently in the Process of Writing TableDumper 2.0)
+
 ## Features
  - Userdata & Function Caching
  - Table Formatting

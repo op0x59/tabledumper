@@ -1,13 +1,12 @@
-# TableDumper
+# TableDumper 2.0
 Lua Module for Dumping Tables, back into a lua format.
 
 ## Update Schedules
 There really is no schedule I just update this whenever I'm bored while in school.
-
-(Currently in the Process of Writing TableDumper 2.0)
+This code is actually disgusting though, better than 1.0 though.
 
 ## Features
- - Userdata & Function Caching
+ - Global Cacher
  - Table Formatting
  - Smart Dumping
  
@@ -21,25 +20,25 @@ Import the DumpTable function into your lua script.
 
 Call it like this:
 ```lua
-print(DumpTable({
-  TestTable = {};
-  CoolFunctions = {
-    print,
-    ipairs,
-    error
-  }
-})); 
+local dumper = require("dumper");
+
+print(dumper:DumpTable({
+  debug.sethook,
+  print,
+  2,
+  "Hello World"
+}, 1)); 
+
+-- 1 == DEBUG MODE
 ```
 
 The output should be something like this:
 ```lua
-local DUMPED_TABLE = {
-  ["TestTable"] = {},
-  ["CoolFunctions"] = {
-   print,		 -- userdata: 0x15d16b8
-   ipairs,		 -- function: 0x15ca420
-   error		 -- function: 0x15cab50
-  }
+{
+    debug.sethook       -- function: 0x23b1e00,
+    print               -- function: 0x23ab470,
+    2                   -- 2,
+    "Hello World"       -- Hello World
 }
 ```
 

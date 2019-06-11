@@ -8,26 +8,30 @@ function dumper:GetTabChar(count)
   return c;
 end
 
-function dumper:CheckGlobal(pGlobal, tab, tString)
+function dumper:CheckGlobal(pGlobal, tab, tString, count)
   if (tab == nil) then tab = _G; end;
+  if (count == nil) then count = 0; end;
   if (tString == nil) then tString = ""; end;
 
-  local cache = {};
-  for name, val in pairs(tab) do
-    if (type(val) == "table") then
-      cache[name] = val;
+  if (count ~= 2) then
+    count = count + 1;
+    local cache = {};
+    for name, val in pairs(tab) do
+      if (type(val) == "table") then
+        cache[name] = val;
+      end
+      if (val == pGlobal) then
+        tString = tString .. name;
+        return tString;
+      end
     end
-    if (val == pGlobal) then
-      tString = tString .. name;
-      return tString;
-    end
-  end
 
-  for name, val in pairs(cache) do
-    local r = dumper:CheckGlobal(pGlobal, val, tString);
-    if (r ~= false) then 
-      tString = tString .. name .. "." .. r;
-      return tString 
+    for name, val in pairs(cache) do
+      local r = dumper:CheckGlobal(pGlobal, val, tString, count);
+      if (r ~= false) then 
+        tString = tString .. name .. "." .. r;
+        return tString 
+      end
     end
   end
   
@@ -76,6 +80,26 @@ function dumper:SerializeValue(name, value, index)
     else
       return dumper:SerializeName(name) .. " = " .. tostring(value);
     end
+  elseif (type(value) == "table") then
+    if (index == name) then
+      return tostring(value);
+    else
+      return dumper:SerializeName(name) .. " = " .. tostring(value);
+    end
+  elseif (type(value) == "userdata") then
+    if (index == name) then
+      if (not dumper:CheckGlobal(value)) then
+        return "\"" .. tostring(value) .. "\"";
+      else
+        return dumper:CheckGlobal(value);
+      end
+    else
+      if (not dumper:CheckGlobal(value)) then
+        return dumper:SerializeName(name) .. " = " .. "\"" .. tostring(value) .. "\""
+      else
+        return dumper:SerializeName(name) .. " = " .. dumper:CheckGlobal(value);
+      end
+    end
   elseif (type(value) == "function") then
     if (index == name) then
       if (not dumper:CheckGlobal(value)) then
@@ -92,11 +116,13 @@ function dumper:SerializeValue(name, value, index)
     end
   end
 
+  print('unknown_value type: ' .. type(value))
   return "unknown_value";
 end
 
-function dumper:DumpTable(gTab, mode)
+function dumper:DumpTable(gTab, mode, recursive)
   if (gTab == nil) then gTab = {}; end;
+  if (recursive == nil) then recursive = true; end;
   local deserialized = "";
   local gTabScanned = false;
   local tIndex = -1;
@@ -109,7 +135,7 @@ function dumper:DumpTable(gTab, mode)
     local b = bytes:gsub(".", function(bb) table.insert(gTab, bb:byte()) return "\\" .. bb:byte() end) or thing .. "\""
   end
 
-  function innerDump(tab)
+  local function innerDump(tab)
     tIndex = tIndex + 1;
     deserialized = deserialized .. dumper:GetTabChar(tIndex) .. "{\n";
     local currIndex = 0;
@@ -124,10 +150,14 @@ function dumper:DumpTable(gTab, mode)
     for name,val in pairs(tab) do
       currIndex = currIndex + 1;
       if (type(val) == "table") then
-        if (val ~= gTab) then
-          innerDump(val);
+        if (recursive == true) then
+          if (val ~= gTab) then
+            innerDump(val);
+          else
+            deserialized = deserialized .. dumper:GetTabChar(tIndex+1) .. "{...}\n";
+          end
         else
-          deserialized = deserialized .. dumper:GetTabChar(tIndex+1) .. "{...}\n";
+          deserialized = deserialized .. dumper:GetTabChar(tIndex+1) .. dumper:SerializeValue(name, val, currIndex) .. "\n";
         end
       else
         if (currIndex == #tab) then

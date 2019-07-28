@@ -1,3 +1,4 @@
+-- All credits to KowalskiFX#9999
 local dumper = {};
 
 function dumper:GetTabChar(count)

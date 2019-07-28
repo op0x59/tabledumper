@@ -129,15 +129,14 @@ function dumper:DumpTable(gTab, mode, recursive)
 
   if (mode == nil) then mode = 0; end;
 
-  if (type(gTab) == "function") then
-    local bytes = string.dump(gTab);
-    gTab = {};
-    local b = bytes:gsub(".", function(bb) table.insert(gTab, bb:byte()) return "\\" .. bb:byte() end) or thing .. "\""
-  end
-
-  local function innerDump(tab)
+  local function innerDump(tab, key)
+    if (key == nil) then key = ""; end;
     tIndex = tIndex + 1;
-    deserialized = deserialized .. dumper:GetTabChar(tIndex) .. "{\n";
+    if (key ~= "") then
+      deserialized = deserialized .. dumper:GetTabChar(tIndex) .. "[\"" .. key .. "\"] = {\n";
+    else
+      deserialized = deserialized .. dumper:GetTabChar(tIndex) .. "{\n";
+    end
     local currIndex = 0;
     if (tab == gTab) then
       if (gTabScanned) then
@@ -152,7 +151,7 @@ function dumper:DumpTable(gTab, mode, recursive)
       if (type(val) == "table") then
         if (recursive == true) then
           if (val ~= gTab) then
-            innerDump(val);
+            innerDump(val, name);
           else
             deserialized = deserialized .. dumper:GetTabChar(tIndex+1) .. "{...}\n";
           end

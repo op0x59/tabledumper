@@ -1,4 +1,5 @@
--- All credits to KowalskiFX#9999
+-- All credits to red development.
+-- Members: KowalskiFX, 0x59
 local dumper = {};
 
 function dumper:GetTabChar(count)

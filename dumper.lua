@@ -1,5 +1,5 @@
 -- All credits to red development.
--- Members: KowalskiFX, 0x59
+-- Members: KowalskiFX, 0x59, RoboMat
 local dumper = {};
 
 function dumper:GetTabChar(count)

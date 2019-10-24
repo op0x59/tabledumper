@@ -68,6 +68,19 @@ function dumper:CheckGlobal(pGlobal, tab, tString, count)
   return false;
 end
 
+function dumper:conv_to_str(int)
+  local hexwheel = "0123456789ABCDEF"
+  local hexstr = ""
+  int = int + 1
+  while int > 0 do
+    local mod = math.fmod(int, 16)
+    hexstr = string.sub(hexwheel, mod+1, mod+1) .. hexstr
+    int = math.floor(int/16)
+  end
+  if hexstr == "" then return "0x0" end
+  return "0x" .. hexstr
+end
+
 function dumper:SerializeName(name)
   if (type(name) == "string") then
     return "[\"" .. name .. "\"]";
@@ -84,6 +97,7 @@ function dumper:SerializeValue(name, value, index)
       return dumper:SerializeName(name) .. " = " .. "\"" .. value .. "\"";
     end
   elseif (type(value) == "number") then
+    if value > 10000 then value = dumper:conv_to_str(value) end
     if (index == name) then
       return tostring(value);
     else

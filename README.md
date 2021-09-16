@@ -35,7 +35,7 @@ you receive the output:
 }
 ```
 
-## Things I fixed
+## Things I fixed or added
 - Improved namespace finder for global values
 - Improved recursive output (will eventually add namespace formatting for recursive values)
 - Improved formatting for output
